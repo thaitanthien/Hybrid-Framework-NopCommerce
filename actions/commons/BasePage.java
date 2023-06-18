@@ -12,6 +12,11 @@ import java.util.List;
 import java.util.Set;
 
 public class BasePage {
+
+    public static BasePage getBasePage() {
+        return new BasePage();
+    }
+
     WebDriverWait explicitWait;
 
     public void get(WebDriver driver, String pageUrl) {
@@ -102,6 +107,7 @@ public class BasePage {
     public WebElement getWebElement(WebDriver driver, String locator) {
         return driver.findElement(By.xpath(locator));
     }
+
     public By getElementByXpath(WebDriver driver, String locator) {
         return By.xpath(locator);
     }
