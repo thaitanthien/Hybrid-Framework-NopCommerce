@@ -19,5 +19,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="selenium-server-4.3.0" level="project" />
+    <orderEntry type="library" name="bcpkix-jdk15on-1.64" level="project" />
+    <orderEntry type="library" name="selenium-server-4.10.0" level="project" />
   </component>
 </module>

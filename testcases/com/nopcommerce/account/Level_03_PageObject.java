@@ -12,6 +12,7 @@ import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
 import pageObjects.RegisterPageObject;
 
+import java.time.Duration;
 import java.util.Random;
 
 public class Level_03_PageObject extends BasePage {
@@ -20,13 +21,14 @@ public class Level_03_PageObject extends BasePage {
     private RegisterPageObject registerPage;
     private LoginPageObject loginPage;
     private CustomerPageObject customerPage;
-    private final String emailAddress = "johnKennedy" + new Random().nextInt(9999)+ "@gmail.com";
+    private final String emailAddress = getEmailRandom();
     private final String projectPath = System.getProperty("user.dir");
 
     @BeforeClass
     public void beforeClass() {
         System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
         driver = new FirefoxDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         navigateToURL(driver, "https://demo.nopcommerce.com");
         homePage = new HomePageObject(driver);
     }
@@ -119,6 +121,10 @@ public class Level_03_PageObject extends BasePage {
         Assert.assertEquals(customerPage.getFirstNameTextboxAttributeValue(), "John");
         Assert.assertEquals(customerPage.getLastNameTextboxAttributeValue(), "Kennedy");
         Assert.assertEquals(customerPage.getEmailAddressTextboxAttributeValue(), "emailAddress");
+    }
+
+    public String getEmailRandom() {
+        return "john" + new Random().nextInt(99999)+ "@kennedy.us";
     }
 
     @AfterClass
