@@ -12,17 +12,17 @@ public class CustomerPageObject extends BasePage {
     }
 
     public String getFirstNameTextboxAttributeValue() {
-        waitForElementInvisible(driverPageObj, CustomerPageUI.FIRST_NAME_TEXTBOX);
+        waitForElementVisible(driverPageObj, CustomerPageUI.FIRST_NAME_TEXTBOX);
         return getElementText(driverPageObj, CustomerPageUI.FIRST_NAME_TEXTBOX);
     }
 
     public String getLastNameTextboxAttributeValue() {
-        waitForElementInvisible(driverPageObj, CustomerPageUI.LAST_NAME_TEXTBOX);
+        waitForElementVisible(driverPageObj, CustomerPageUI.LAST_NAME_TEXTBOX);
         return getElementText(driverPageObj, CustomerPageUI.LAST_NAME_TEXTBOX);
     }
 
     public String getEmailAddressTextboxAttributeValue() {
-        waitForElementInvisible(driverPageObj, CustomerPageUI.EMAIL_TEXTBOX);
+        waitForElementVisible(driverPageObj, CustomerPageUI.EMAIL_TEXTBOX);
         return getElementText(driverPageObj, CustomerPageUI.EMAIL_TEXTBOX);
     }
 }

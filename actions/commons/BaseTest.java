@@ -1,9 +1,10 @@
 package commons;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
@@ -20,26 +21,28 @@ public class BaseTest {
 
         switch (browser) {
             case FIREFOX:
-                // manual download and setting:
+//                  manual download and setting:
 //                System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
 //                driver = new FirefoxDriver();
 
-//                WebDriverManager ver4:
+//                  WebDriverManager ver4:
 //                WebDriverManager.firefoxdriver().setup();
 //                driver = new FirefoxDriver();
-//                 WebDriverManger ver5: tải về driver, setting biến môi trường và khởi tạo browser lên
+//                  WebDriverManger ver5: download driver, setting biến môi trường và khởi tạo browser lên
 //                WebDriverManager.firefoxdriver().create();
-//                Selenium Manger:
+//                  Selenium Manger:
                 driver = new FirefoxDriver();
                 break;
             case CHROME:
-                WebDriverManager.chromedriver().create();
+//                WebDriverManager.chromedriver().create();
+                driver = new ChromeDriver();
                 break;
             case EDGE:
-                WebDriverManager.edgedriver().create();
+                driver = new EdgeDriver();
+//                WebDriverManager.edgedriver().create();
                 break;
             case SAFARI:
-                WebDriverManager.safaridriver().create();
+//                WebDriverManager.safaridriver().create();
                 break;
             default:
                 throw new RuntimeException("Invalid browser name");

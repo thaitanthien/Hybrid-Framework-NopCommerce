@@ -105,7 +105,7 @@ public class Level_04_MultiBrowsers extends BaseTest {
         registerPage.clickTopNopCommerceLogo();
         homePage = new HomePageObject(driver);
         homePage.clickLoginLink();
-        loginPage = new LoginPageObject();
+        loginPage = new LoginPageObject(driver);
         loginPage.enterEmailTextbox(emailAddress);
         loginPage.enterPasswordTextbox("123456");
         loginPage.clickLoginBtn();
