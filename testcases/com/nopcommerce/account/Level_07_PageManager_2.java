@@ -8,16 +8,16 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pageObjects.CustomerPageObject;
-import pageObjects.HomePageObject;
-import pageObjects.LoginPageObject;
-import pageObjects.RegisterPageObject;
+import pageObjects.user.CustomerPageObject;
+import pageObjects.user.HomePageObject;
+import pageObjects.user.UserLoginPageObject;
+import pageObjects.user.RegisterPageObject;
 
 public class Level_07_PageManager_2 extends BaseTest {
     private WebDriver driver;
     private HomePageObject homePage;
     private RegisterPageObject registerPage;
-    private LoginPageObject loginPage;
+    private UserLoginPageObject loginPage;
     private CustomerPageObject customerPage;
     private final String emailAddress = getEmailRandom();
 
@@ -80,7 +80,7 @@ public class Level_07_PageManager_2 extends BaseTest {
     }
 
     @Test
-    public void Register_05_Success() {
+    public void Register_05_Register_Success() {
         homePage = registerPage.clickTopNopCommerceLogo();
         registerPage = homePage.clickRegisterLink();
         registerPage.enterToFirstNameTextbox("John");
@@ -102,7 +102,7 @@ public class Level_07_PageManager_2 extends BaseTest {
         customerPage = homePage.clickAccountLink();
         Assert.assertEquals(customerPage.getFirstNameTextboxAttributeValue(), "John");
         Assert.assertEquals(customerPage.getLastNameTextboxAttributeValue(), "Kennedy");
-        Assert.assertEquals(customerPage.getEmailAddressTextboxAttributeValue(), "emailAddress");
+        Assert.assertEquals(customerPage.getEmailAddressTextboxAttributeValue(), emailAddress);
     }
 
     @AfterClass
