@@ -1,5 +1,7 @@
 package commons;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
@@ -7,14 +9,25 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.testng.Assert;
+import org.testng.Reporter;
 
 import java.sql.DriverManager;
 import java.time.Duration;
 import java.util.Random;
 
 public class BaseTest {
+    protected final Logger log;
     private WebDriver driver;
-//    private final String projectPath = System.getProperty("user.dir");
+
+    protected BaseTest() {
+        // ver1
+//        log = LogFactory.getLog(getClass());
+// same with:
+//      log = LogFactory.getLog(BaseTest.class);
+
+        log = LogManager.getLogger(getClass());
+    }
 
     protected WebDriver getBrowserDriver(String browserName) {
         BrowserList browser = BrowserList.valueOf(browserName.toUpperCase());
@@ -88,6 +101,49 @@ public class BaseTest {
         if (!(driver == null)) {
             driver.quit();
         }
+    }
+
+    protected boolean verifyTrue(boolean condition) {
+        boolean pass = true;
+        try {
+            Assert.assertTrue(condition);
+            log.info("---------------PASSED---------------");
+        } catch (Throwable e) {
+            log.info("---------------FAILED---------------");
+            pass = false;
+
+            VerificationFailures.getFailures().addFailureForTest(Reporter.getCurrentTestResult(), e);
+            Reporter.getCurrentTestResult().setThrowable(e);
+        }
+        return pass;
+    }
+
+    protected boolean verifyFalse(boolean condition) {
+        boolean pass = true;
+        try {
+            Assert.assertFalse(condition);
+            log.info("---------------PASSED---------------");
+        } catch (Throwable e) {
+            log.info("---------------FAILED---------------");
+            pass = false;
+            VerificationFailures.getFailures().addFailureForTest(Reporter.getCurrentTestResult(), e);
+            Reporter.getCurrentTestResult().setThrowable(e);
+        }
+        return pass;
+    }
+
+    protected boolean verifyEquals(Object actual, Object expected) {
+        boolean pass = true;
+        try {
+            Assert.assertEquals(actual, expected);
+            log.info("---------------PASSED---------------");
+        } catch (Throwable e) {
+            log.info("---------------FAILED---------------");
+            pass = false;
+            VerificationFailures.getFailures().addFailureForTest(Reporter.getCurrentTestResult(), e);
+            Reporter.getCurrentTestResult().setThrowable(e);
+        }
+        return pass;
     }
 
 }

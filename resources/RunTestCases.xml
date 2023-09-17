@@ -2,12 +2,16 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 <suite parallel="none" name="NopCommerce">
 
+    <listeners>
+        <listener class-name="commons.MethodListener"></listener>
+    </listeners>
+
     <parameter name="endUserUrl" value="https://demo.nopcommerce.com/"></parameter>
     <parameter name="adminUrl" value="https://admin-demo.nopcommerce.com/admin/"></parameter>
-    <test name="Run on Firefox">
-        <parameter name="browser" value="firefox"/>
+    <test name="Run on Chrome">
+        <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="com.nopcommerce.account.Level_07_PageManager_2"/>
+            <class name="com.nopcommerce.account.Level_16_Log"/>
         </classes>
     </test>
 
