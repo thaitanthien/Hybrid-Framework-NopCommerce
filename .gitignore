@@ -1,3 +1,5 @@
 .idea
 *.iml
 out
+test-output
+.gitignore

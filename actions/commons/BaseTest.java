@@ -11,7 +11,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.testng.Assert;
 import org.testng.Reporter;
+import org.testng.annotations.BeforeSuite;
 
+import java.io.File;
 import java.sql.DriverManager;
 import java.time.Duration;
 import java.util.Random;
@@ -20,12 +22,12 @@ public class BaseTest {
     protected final Logger log;
     private WebDriver driver;
 
-    protected BaseTest() {
+    public BaseTest() {
         // ver1
 //        log = LogFactory.getLog(getClass());
 // same with:
 //      log = LogFactory.getLog(BaseTest.class);
-
+        // ver2
         log = LogManager.getLogger(getClass());
     }
 
@@ -146,4 +148,34 @@ public class BaseTest {
         return pass;
     }
 
+    public WebDriver getDriver() {
+        return this.driver;
+    }
+
+//    @BeforeSuite
+    public void deleteFileInReport() {
+        // Remove all file in ReportNG screenshot (image)
+        log.info("Starting delete all files in ReportNG screenshot");
+        deleteAllFileInFolder("ReportNGScreenShots");
+
+        // Remove all file in Allure attachment (json file)
+        deleteAllFileInFolder("allure-json");
+    }
+
+    public void deleteAllFileInFolder(String folderName) {
+        try {
+            String pathFolderDownload = GlobalConstants.RELATIVE_PROJECT_PATH + File.separator + folderName;
+            File file = new File(pathFolderDownload);
+            File[] listOfFiles = file.listFiles();
+            if (listOfFiles.length != 0) {
+                for (int i = 0; i < listOfFiles.length; i++) {
+                    if (listOfFiles[i].isFile() && !listOfFiles[i].getName().equals("environment.properties")) {
+                        new File(listOfFiles[i].toString()).delete();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.print(e.getMessage());
+        }
+    }
 }

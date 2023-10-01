@@ -3,11 +3,12 @@
 <suite parallel="none" name="NopCommerce">
 
     <listeners>
-        <listener class-name="commons.MethodListener"></listener>
+        <listener class-name="commons.MethodListener"/>
     </listeners>
 
-    <parameter name="endUserUrl" value="https://demo.nopcommerce.com/"></parameter>
-    <parameter name="adminUrl" value="https://admin-demo.nopcommerce.com/admin/"></parameter>
+<!--    <parameter name="endUserUrl" value="https://demo.nopcommerce.com/"></parameter>-->
+<!--    <parameter name="adminUrl" value="https://admin-demo.nopcommerce.com/admin/"></parameter>-->
+
     <test name="Run on Chrome">
         <parameter name="browser" value="chrome"/>
         <classes>
