@@ -23,5 +23,6 @@
     <orderEntry type="library" name="log4j-api-2.19.0" level="project" />
     <orderEntry type="library" name="selenium-server-4.13.0" level="project" />
     <orderEntry type="library" name="extentReportv5" level="project" />
+    <orderEntry type="library" name="allure-report" level="project" />
   </component>
 </module>

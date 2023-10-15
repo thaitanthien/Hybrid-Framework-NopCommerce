@@ -152,14 +152,14 @@ public class BaseTest {
         return this.driver;
     }
 
-//    @BeforeSuite
+    @BeforeSuite
     public void deleteFileInReport() {
         // Remove all file in ReportNG screenshot (image)
         log.info("Starting delete all files in ReportNG screenshot");
         deleteAllFileInFolder("ReportNGScreenShots");
 
         // Remove all file in Allure attachment (json file)
-        deleteAllFileInFolder("allure-json");
+        deleteAllFileInFolder("allure-results");
     }
 
     public void deleteAllFileInFolder(String folderName) {

@@ -106,7 +106,7 @@ public class BasePage {
     }
 
     public static By getByLocator(String locatorType) {
-        By by = null;
+        By by;
         String locator = locatorType.substring(locatorType.indexOf("=") + 1).trim();
         if (locatorType.startsWith("xpath") || locatorType.startsWith("Xpath") || locatorType.startsWith("XPath") || locatorType.startsWith("XPATH")) {
             by = By.xpath(locator);
@@ -139,12 +139,12 @@ public class BasePage {
         return driver.findElements(getByLocator(locator));
     }
 
-
     public void clickToElement(WebDriver driver, String locator, String... dynamicValues) {
         getWebElement(driver, getDynamicLocator(locator, dynamicValues)).click();
     }
 
     public void sendKeyToElement(WebDriver driver, String locator, String key, String... dynamicValues) {
+        getWebElement(driver, getDynamicLocator(locator, dynamicValues)).clear();
         getWebElement(driver, getDynamicLocator(locator, dynamicValues)).sendKeys(key);
     }
 
@@ -216,7 +216,33 @@ public class BasePage {
     }
 
     public boolean isElementDisplayed(WebDriver driver, String locator, String... dynamicValues) {
-        return getWebElement(driver, getDynamicLocator(locator, dynamicValues)).isDisplayed();
+//        return getWebElement(driver, getDynamicLocator(locator, dynamicValues)).isDisplayed();
+        boolean status;
+        try {
+            status = getWebElement(driver, getDynamicLocator(locator, dynamicValues)).isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+        return status;
+    }
+
+    public void setImplicitWait(WebDriver driver, long timeOutInSecond) {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(timeOutInSecond));
+    }
+
+    // for element not in DOM and UI
+    public boolean isElementUndisplayed(WebDriver driver, String locator) {
+        setImplicitWait(driver, shortTimeout);
+        List<WebElement> elements = getListWebElement(driver, locator);
+        setImplicitWait(driver, longTimeout);
+
+        if (elements.size() == 0) { // not in DOM & UI
+            return true;
+        } else if (!elements.get(0).isDisplayed()) { // in DOM but not in UI
+            return true;
+        } else {
+            return false; // in DOM and in UI
+        }
     }
 
     public boolean isElementEnable(WebDriver driver, String locator) {
@@ -357,5 +383,6 @@ public class BasePage {
     }
 
     private long longTimeout = GlobalConstants.LONG_TIMEOUT;
+    private long shortTimeout = GlobalConstants.SHORT_TIMEOUT;
 
 }
